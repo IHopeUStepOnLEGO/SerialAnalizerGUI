@@ -1,0 +1,10 @@
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\bin\Debug\SerialGUI.exe.config
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\bin\Debug\SerialGUI.exe
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\bin\Debug\SerialGUI.pdb
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csprojAssemblyReference.cache
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.Form1.resources
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.Properties.Resources.resources
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.GenerateResource.cache
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.CoreCompileInputs.cache
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.exe
+C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.pdb
