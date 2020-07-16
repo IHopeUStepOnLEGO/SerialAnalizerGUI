@@ -18,6 +18,7 @@ namespace SerialGUI
         private int _buttonHeight = 20;
 
         private int _groupBoxHeight;
+        private int _groupBoxWidth = 250;
 
         // properties to change the private values from outside
         public int TextBoxWidth
@@ -55,12 +56,34 @@ namespace SerialGUI
             get {return _groupBoxHeight;}
             set {_groupBoxHeight = value;}
         }
-            
-        public WriteOperation(GroupBox targetGroupBox, Point originPoint, int dataByteCount, int iterationCounter=1)
+
+        public int GroupBoxWidth
         {
-            // create an group box to hold all content
+            get { return _groupBoxWidth; }
+        }
+            
+        public WriteOperation(Form targetForm, Point originPoint, int dataByteCount, int iterationCounter=1)
+        {
+
+            // check if target form already has an group box for write operations
+           
+            if(targetForm.Controls.Find("writeOperationGroupBox", false).FirstOrDefault() as GroupBox == null)
+            {
+                // create a GroupBox to hold all operations
+                GroupBox writeOperationGroupBox = new GroupBox();
+                writeOperationGroupBox.Text = "write operations";
+                writeOperationGroupBox.Name = "writeOperationGroupBox";
+                writeOperationGroupBox.Location = new Point(10, 0);
+                writeOperationGroupBox.Size = new Size(_groupBoxWidth, 40);
+
+                // add GroupBox to targetForm
+                targetForm.Controls.Add(writeOperationGroupBox);
+            }
+            
+
+            // for each write operation, create an GroupBox
             GroupBox wGroup = new GroupBox();
-            wGroup.Location = originPoint;
+            wGroup.Location = new Point(originPoint.X-10, originPoint.Y);
             wGroup.Text = "write" + iterationCounter;
             GroupBoxHeight = 40 + (dataByteCount*_textBoxHeight) + (dataByteCount+1)*5;
             wGroup.Size = new Size(230, this.GroupBoxHeight);
@@ -114,10 +137,12 @@ namespace SerialGUI
             wGroup.Controls.Add(sendButton);
             wGroup.Controls.Add(dataByteLabel);
             wGroup.Controls.Add(slvAddrTBLabel);
-            
-            
+
+
 
             // add groupbox to target form
+            GroupBox targetGroupBox = targetForm.Controls.Find("writeOperationGroupBox", true).FirstOrDefault() as GroupBox;
+            targetGroupBox.Height += _groupBoxHeight;
             targetGroupBox.Controls.Add(wGroup);
         }
     }

@@ -33,13 +33,13 @@
             this.WriteDataByteCountLabel = new System.Windows.Forms.Label();
             this.WriteOperationCount = new System.Windows.Forms.NumericUpDown();
             this.OperationsGroupBox = new System.Windows.Forms.GroupBox();
-            this.WriteGroupBox = new System.Windows.Forms.GroupBox();
-            this.WriteOperationLabel = new System.Windows.Forms.Label();
             this.ReadGroupBox = new System.Windows.Forms.GroupBox();
             this.ReadOperationCountLabel = new System.Windows.Forms.Label();
             this.ReadDataByteCountLabel = new System.Windows.Forms.Label();
             this.ReadOperationCount = new System.Windows.Forms.NumericUpDown();
             this.ReadDataByteCount = new System.Windows.Forms.NumericUpDown();
+            this.WriteGroupBox = new System.Windows.Forms.GroupBox();
+            this.WriteOperationCountLabel = new System.Windows.Forms.Label();
             this.COMConnectionComboBox = new System.Windows.Forms.ComboBox();
             this.COMConnectionLabel = new System.Windows.Forms.Label();
             this.COMConnectionButton = new System.Windows.Forms.Button();
@@ -50,10 +50,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.WriteDataByteCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WriteOperationCount)).BeginInit();
             this.OperationsGroupBox.SuspendLayout();
-            this.WriteGroupBox.SuspendLayout();
             this.ReadGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadOperationCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReadDataByteCount)).BeginInit();
+            this.WriteGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,29 +104,6 @@
             this.OperationsGroupBox.Text = "Operations";
             this.OperationsGroupBox.Enter += new System.EventHandler(this.OperationsGroupBox_Enter);
             // 
-            // WriteGroupBox
-            // 
-            this.WriteGroupBox.Controls.Add(this.WriteOperationLabel);
-            this.WriteGroupBox.Controls.Add(this.WriteDataByteCountLabel);
-            this.WriteGroupBox.Controls.Add(this.WriteOperationCount);
-            this.WriteGroupBox.Controls.Add(this.WriteDataByteCount);
-            this.WriteGroupBox.Location = new System.Drawing.Point(6, 19);
-            this.WriteGroupBox.Name = "WriteGroupBox";
-            this.WriteGroupBox.Size = new System.Drawing.Size(170, 93);
-            this.WriteGroupBox.TabIndex = 6;
-            this.WriteGroupBox.TabStop = false;
-            this.WriteGroupBox.Text = "Write";
-            // 
-            // WriteOperationLabel
-            // 
-            this.WriteOperationLabel.AutoSize = true;
-            this.WriteOperationLabel.Location = new System.Drawing.Point(9, 21);
-            this.WriteOperationLabel.Name = "WriteOperationLabel";
-            this.WriteOperationLabel.Size = new System.Drawing.Size(90, 13);
-            this.WriteOperationLabel.TabIndex = 4;
-            this.WriteOperationLabel.Text = "No. of Operations";
-            this.WriteOperationLabel.Click += new System.EventHandler(this.label1_Click);
-            // 
             // ReadGroupBox
             // 
             this.ReadGroupBox.Controls.Add(this.ReadOperationCountLabel);
@@ -171,6 +148,29 @@
             this.ReadDataByteCount.Name = "ReadDataByteCount";
             this.ReadDataByteCount.Size = new System.Drawing.Size(50, 20);
             this.ReadDataByteCount.TabIndex = 0;
+            // 
+            // WriteGroupBox
+            // 
+            this.WriteGroupBox.Controls.Add(this.WriteOperationCountLabel);
+            this.WriteGroupBox.Controls.Add(this.WriteDataByteCountLabel);
+            this.WriteGroupBox.Controls.Add(this.WriteOperationCount);
+            this.WriteGroupBox.Controls.Add(this.WriteDataByteCount);
+            this.WriteGroupBox.Location = new System.Drawing.Point(6, 19);
+            this.WriteGroupBox.Name = "WriteGroupBox";
+            this.WriteGroupBox.Size = new System.Drawing.Size(170, 93);
+            this.WriteGroupBox.TabIndex = 6;
+            this.WriteGroupBox.TabStop = false;
+            this.WriteGroupBox.Text = "Write";
+            // 
+            // WriteOperationCountLabel
+            // 
+            this.WriteOperationCountLabel.AutoSize = true;
+            this.WriteOperationCountLabel.Location = new System.Drawing.Point(9, 21);
+            this.WriteOperationCountLabel.Name = "WriteOperationCountLabel";
+            this.WriteOperationCountLabel.Size = new System.Drawing.Size(90, 13);
+            this.WriteOperationCountLabel.TabIndex = 4;
+            this.WriteOperationCountLabel.Text = "No. of Operations";
+            this.WriteOperationCountLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // COMConnectionComboBox
             // 
@@ -252,12 +252,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.WriteDataByteCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WriteOperationCount)).EndInit();
             this.OperationsGroupBox.ResumeLayout(false);
-            this.WriteGroupBox.ResumeLayout(false);
-            this.WriteGroupBox.PerformLayout();
             this.ReadGroupBox.ResumeLayout(false);
             this.ReadGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadOperationCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReadDataByteCount)).EndInit();
+            this.WriteGroupBox.ResumeLayout(false);
+            this.WriteGroupBox.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -273,7 +273,7 @@
         private System.Windows.Forms.NumericUpDown WriteOperationCount;
         private System.Windows.Forms.GroupBox OperationsGroupBox;
         private System.Windows.Forms.GroupBox WriteGroupBox;
-        private System.Windows.Forms.Label WriteOperationLabel;
+        private System.Windows.Forms.Label WriteOperationCountLabel;
         private System.Windows.Forms.GroupBox ReadGroupBox;
         private System.Windows.Forms.Label ReadOperationCountLabel;
         private System.Windows.Forms.Label ReadDataByteCountLabel;
