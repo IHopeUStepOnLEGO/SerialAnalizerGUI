@@ -27,6 +27,11 @@ namespace SerialGUI
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
+
+            GroupBox writeOperationGroupBox = new GroupBox();
+            writeOperationGroupBox.Size = new Size(260, 40);
+
+            form2.Controls.Add(writeOperationGroupBox);
             // if write databyte count is not-zero and non-negative
             if (this.WriteDataByteCount.Value > 0)
             {
@@ -37,8 +42,10 @@ namespace SerialGUI
 
                     for (int i = 0; i<this.WriteOperationCount.Value; i++)
                     {
-                        WriteOperation wOp = new WriteOperation(form2, writeOperationPosition, (int)this.WriteDataByteCount.Value, i);
+                        WriteOperation wOp = new WriteOperation(writeOperationGroupBox, writeOperationPosition, (int)this.WriteDataByteCount.Value, i);
                         writeOperationPosition.Y += wOp.GroupBoxHeight;
+                        writeOperationGroupBox.Height += wOp.GroupBoxHeight;
+                       
                     }
                     
                     // hide form1 after submission

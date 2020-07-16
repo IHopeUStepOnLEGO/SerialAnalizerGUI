@@ -56,11 +56,10 @@ namespace SerialGUI
             set {_groupBoxHeight = value;}
         }
             
-        public WriteOperation(Form targetForm, Point originPoint, int dataByteCount, int iterationCounter=1)
+        public WriteOperation(GroupBox targetGroupBox, Point originPoint, int dataByteCount, int iterationCounter=1)
         {
             // create an group box to hold all content
             GroupBox wGroup = new GroupBox();
-
             wGroup.Location = originPoint;
             wGroup.Text = "write" + iterationCounter;
             GroupBoxHeight = 40 + (dataByteCount*_textBoxHeight) + (dataByteCount+1)*5;
@@ -110,15 +109,16 @@ namespace SerialGUI
             sendButton.Name = "sendButton" + iterationCounter;
             sendButton.Location = new Point(wGroupContentOriginPoint.X + _textBoxWidth + 80, wGroupContentOriginPoint.Y - (iterationCounter * this.GroupBoxHeight));
 
-
             // add all non-dynamic components
             wGroup.Controls.Add(slvAddrTB);
             wGroup.Controls.Add(sendButton);
             wGroup.Controls.Add(dataByteLabel);
             wGroup.Controls.Add(slvAddrTBLabel);
+            
+            
 
             // add groupbox to target form
-            targetForm.Controls.Add(wGroup);
+            targetGroupBox.Controls.Add(wGroup);
         }
     }
 }
