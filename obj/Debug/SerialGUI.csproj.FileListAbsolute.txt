@@ -8,3 +8,13 @@ C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.Gene
 C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.CoreCompileInputs.cache
 C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.exe
 C:\Users\Tobias\source\repos\SerialGUI\SerialGUI\obj\Debug\SerialGUI.pdb
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\bin\Debug\SerialGUI.exe.config
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\bin\Debug\SerialGUI.exe
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\bin\Debug\SerialGUI.pdb
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csprojAssemblyReference.cache
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.Form1.resources
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.Properties.Resources.resources
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.GenerateResource.cache
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.csproj.CoreCompileInputs.cache
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.exe
+D:\Users\gentt\workspaces\windowsFormsApplications\SerialGUI\SerialGUI\obj\Debug\SerialGUI.pdb

@@ -14,6 +14,7 @@ namespace SerialGUI
     {
         Form form2 = new Form();
 
+
         public Form1()
         {
             InitializeComponent();
@@ -37,11 +38,14 @@ namespace SerialGUI
                     for (int i = 0; i<this.WriteOperationCount.Value; i++)
                     {
                         WriteOperation wOp = new WriteOperation(form2, writeOperationPosition, (int)this.WriteDataByteCount.Value, i);
-                        writeOperationPosition.Y += 150;
+                        writeOperationPosition.Y += wOp.GroupBoxHeight;
                     }
                     
                     // hide form1 after submission
-                    this.Hide();
+                    this.Hide();        
+
+                    form2.Size = new Size(280, 150+(int)WriteOperationCount.Value*150);
+
                     // if form 2 is closed, close whole application
                     form2.FormClosed += (s, args) => this.Close();
                     // bring up main form
