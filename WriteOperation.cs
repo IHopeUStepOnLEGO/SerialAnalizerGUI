@@ -75,6 +75,7 @@ namespace SerialGUI
                 writeOperationGroupBox.Name = "writeOperationGroupBox";
                 writeOperationGroupBox.Location = new Point(10, 0);
                 writeOperationGroupBox.Size = new Size(_groupBoxWidth, 40);
+                
 
                 // add GroupBox to targetForm
                 targetForm.Controls.Add(writeOperationGroupBox);
@@ -137,8 +138,6 @@ namespace SerialGUI
             wGroup.Controls.Add(sendButton);
             wGroup.Controls.Add(dataByteLabel);
             wGroup.Controls.Add(slvAddrTBLabel);
-
-
 
             // add groupbox to target form
             GroupBox targetGroupBox = targetForm.Controls.Find("writeOperationGroupBox", true).FirstOrDefault() as GroupBox;

@@ -10,10 +10,11 @@ using System.Windows.Forms;
 
 namespace SerialGUI
 {
+    
     public partial class Form1 : Form
     {
         Form form2;
-        WriteOperation wOp;
+        OperationFactory opFactory = new OperationFactory();
 
         public Form1()
         {
@@ -24,6 +25,9 @@ namespace SerialGUI
 
             this.ReadOperationCount.Value = 1;
             this.ReadDataByteCount.Value = 1;
+
+            // set device selection to disabled until connection established
+            this.DeviceComboBox.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,77 +40,58 @@ namespace SerialGUI
             // prepare new form
             form2 = new Form();
 
-            // if write databyte count is not-zero and non-negative
+            // if write operations is non-zero and non-negative
             if (this.WriteOperationCount.Value > 0)
             {
-                // if write operations is non-zero and non-negative
+                // if write databyte count is not-zero and non-negative
                 if (this.WriteDataByteCount.Value > 0)
                 {
-                    Point writeOperationPosition = new Point(20, 20);
+                    // create origin point for the group box containing all operations
+                    Point writeGroupBoxPosition = new Point(20, 20);
 
                     for (int i = 0; i<this.WriteOperationCount.Value; i++)
                     {
                         // create an new groupbox in form2
-                        wOp = new WriteOperation(form2, writeOperationPosition, (int)this.WriteDataByteCount.Value, i);
+                        opFactory.addWriteOperationToForm(form2, writeGroupBoxPosition, (int)this.WriteDataByteCount.Value, i);
                         // increment writeOperationPosition.Y by the height of the added component*operation count
-                        writeOperationPosition.Y += wOp.GroupBoxHeight;                      
+                        writeGroupBoxPosition.Y += form2.Controls.Find("wGroupBox" + i, true).FirstOrDefault().Height;
                     }
- 
+
                 } else {
-                    // if dataCount is <= 0, disable button
-                    this.SubmitButton.Enabled = false;
-                    // change color of textbox label and focus on textbox
-                    this.WriteDataByteCountLabel.ForeColor = Color.FromArgb(255, 0, 0);
-                    this.WriteDataByteCount.Focus();
+                    // if data bytes <= 0, set value to 1 and restart this function
+                    this.WriteDataByteCount.Value = 1;
+                    this.SubmitButton_Click(sender, e);
                 }
             } else {
-                // if operation count is <= 0, disable button
-                this.SubmitButton.Enabled = false;
-                // change color of textbox label and focus on textbox
-                this.WriteOperationCountLabel.ForeColor = Color.FromArgb(255, 0, 0);
-                this.WriteOperationCount.Focus();
+                // if operation count is <= 0, set value to 1 and restart this function
+                this.WriteOperationCount.Value = 1;
+                this.SubmitButton_Click(sender, e);
             }
 
-
-            /*
-            // if read data count is non-zero and non negative
-            if (this.ReadOperationCount.Value > 0)
+            /*** INSERT READ HERE ***/
+            if(this.ReadOperationCount.Value > 0)
             {
-                // if read data bytes are non-zero and non-negative
-                if(this.ReadDataByteCount.Value > 0)
+                if(this.ReadDataByteCount.Value >0)
                 {
-                    Point readOperationPosition = new Point(20, 20);
+                    Point readGroupBoxPosition = new Point(form2.Controls.Find("writeOperationGroupBox", true).FirstOrDefault().Width, 20);
 
-                    for (int i=0; i<this.ReadOperationCount.Value; i++)
+                    for(int i = 0; i< this.ReadOperationCount.Value; i++)
                     {
-                        // new read operation
-                        // increment readOperationPosition.Y by the height of the added component*operation count
-                        //readOperationPosition.Y += GenericUriParserOptions.GroupBoxHeight;
-                    }
-                } else
-                {
-                    // if dataCount is <= 0, disable button
-                    this.SubmitButton.Enabled = false;
-                    // change color of textbox label and focus on textbox
-                    this.ReadDataByteCountLabel.ForeColor = Color.FromArgb(255, 0, 0);
-                    this.ReadDataByteCountLabel.Focus();
-                }
-            } else
-            {
-                // if operation count is <= 0, disable button
-                this.SubmitButton.Enabled = false;
-                // change color of textbox label and focus on textbox
-                this.WriteOperationCountLabel.ForeColor = Color.FromArgb(255, 0, 0);
-                this.WriteOperationCount.Focus();
-            }*/
 
-            // hide form1 after submission
-            this.Hide();
-            form2.Size = new Size(wOp.GroupBoxWidth+ 40, 150 + (int)WriteOperationCount.Value * 150);
-            // if form 2 is closed, show form1 again
-            form2.FormClosed += (s, args) => this.Show();
+                        opFactory.addReadOperationToForm(form2, readGroupBoxPosition, (int)this.ReadDataByteCount.Value, i);
+                    }
+                }
+            }
+
             try
             {
+                // hide form1 after submission
+                this.Hide();
+                // get bigger hight from read/write and take the biggest one as starting window size
+                int dynamicWindowSize = form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height > form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height ? form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height + 40 : form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height + 40;
+                form2.Size = new Size(form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Width + 40 + form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Width, dynamicWindowSize);
+                // if form 2 is closed, show form1 again
+                form2.FormClosed += (s, args) => this.Show();
                 // show form2
                 form2.Show();
             } catch
@@ -118,14 +103,7 @@ namespace SerialGUI
         } 
         private void OperationCount_ValueChanged(object sender, EventArgs e)
         {
-            // check if operationCount is valid
-            if(this.WriteDataByteCount.Value > 0)
-            {
-                // change label color back to normal
-                this.WriteDataByteCountLabel.ForeColor = Color.FromArgb(0, 0, 0);
-                // enable button
-                this.SubmitButton.Enabled = true;
-            }
+
         }
 
         private void WriteOperationCountLabel_Click(object sender, EventArgs e)
@@ -156,27 +134,13 @@ namespace SerialGUI
 
         private void WriteOperationCount_ValueChanged(object sender, EventArgs e)
         {
-            // check if operationCount is valid
-            if (this.WriteOperationCount.Value > 0)
-            {
-                // change label color back to normal
-                this.WriteOperationCountLabel.ForeColor = Color.FromArgb(0, 0, 0);
-                // enable button
-                this.SubmitButton.Enabled = true;
-            }
+
         }
 
 
         private void ReadOperationCount_ValueChanged(object sender, EventArgs e)
         {
-            // check if operationCount is valid
-            if(this.ReadOperationCount.Value >0)
-            {
-                // change label color back to normal
-                this.ReadOperationCountLabel.ForeColor = Color.FromArgb(0, 0, 0);
-                // enable button
-                this.SubmitButton.Enabled = true;
-            }
+
         }
     }
 }
