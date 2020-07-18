@@ -96,9 +96,9 @@ namespace SerialGUI
             rGroup.Name = "rGroupBox" + iterationCounter;
 
             // add groupbox to target form
-            GroupBox targetGroupBox = targetForm.Controls.Find("readOperationGroupBox", true).FirstOrDefault() as GroupBox;
-            targetGroupBox.Height = _groupBoxHeight;
-            targetGroupBox.Controls.Add(rGroup);
+            //GroupBox targetGroupBox = targetForm.Controls.Find("readOperationGroupBox", true).FirstOrDefault() as GroupBox;
+            //targetGroupBox.Height = _groupBoxHeight;
+            //targetGroupBox.Controls.Add(rGroup);
 
             Point rGroupContentOriginPoint = new Point(originPoint.X + _groupBoxWidth, originPoint.Y + 20);
 
