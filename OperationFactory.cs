@@ -12,7 +12,7 @@ namespace SerialGUI
     /*** IOperation interface ***/
     public interface IOperation
     {
-
+        void Button_Click(object sender, EventArgs e, Form targetForm, int dataByteCount);
     }
 
     /*** ReadOperation Class ***/
@@ -71,6 +71,12 @@ namespace SerialGUI
         {
             get { return _groupBoxWidth; }
         }
+
+        public void Button_Click(object sender, EventArgs e, Form targetForm, int dataByteCount)
+        {
+
+        }
+
         public ReadOperation(Form targetForm, Point originPoint, int iterationCounter = 1)
         {
             // check if target form already has an group box for read operations
@@ -129,7 +135,7 @@ namespace SerialGUI
 
             // add a receive button
             Button receiveButton = new Button();
-            receiveButton.Width = _buttonWidth;
+            receiveButton.Width = _buttonWidth+10;
             receiveButton.Height = _buttonHeight;
             receiveButton.Text = "receive" + iterationCounter;
             receiveButton.Name = "rReceiveButton" + iterationCounter;
@@ -151,6 +157,7 @@ namespace SerialGUI
     /*** WriteOperation Class ***/
     public class WriteOperation : IOperation
     {
+
         GroupBox targetGroupBox;
 
         // private values to hold form and offset of controls added by this class
@@ -203,6 +210,39 @@ namespace SerialGUI
         public int GroupBoxWidth
         {
             get { return _groupBoxWidth; }
+        }
+
+        public void Button_Click(object sender, EventArgs e, Form targetForm, int dataByteCount)
+        {
+            // create button object from sender reference
+            var button = (Button)sender;
+
+            // extract iteration number from button name
+            string a = button.Name;
+            string b = string.Empty;
+            int val = 0;
+
+            for(int i=0; i<a.Length;i++)
+            {
+                if(Char.IsDigit(a[i]))
+                {
+                    b += a[i];
+                }
+            }
+
+            if (b.Length > 0)
+            {
+                val = int.Parse(b);
+            }
+
+
+            TextBox slaveAddressTB = targetForm.Controls.Find("wSlaveAddressTextBox" + val, true).FirstOrDefault() as TextBox;
+            Console.WriteLine(slaveAddressTB.Text);
+
+            List<int> dataBytes = new List<int>();
+
+            // TODO: button functionality
+
         }
 
         public WriteOperation(Form targetForm, Point originPoint, int dataByteCount, int iterationCounter = 1)
@@ -271,6 +311,8 @@ namespace SerialGUI
             sendButton.Text = "send" + iterationCounter;
             sendButton.Name = "wSendButton" + iterationCounter;
             sendButton.Location = new Point(wGroupContentOriginPoint.X + _textBoxWidth + 80, wGroupContentOriginPoint.Y - (iterationCounter * this.GroupBoxHeight));
+            //sendButton.Click += new EventHandler(Button_Click);
+            sendButton.Click += delegate (object sender, EventArgs e) { Button_Click(sender, e, targetForm, dataByteCount); };
 
             // add all components
             wGroup.Controls.Add(slvAddrTB);
@@ -300,7 +342,7 @@ namespace SerialGUI
 
         }
 
-        public IOperation CreateOperation(OperationType type, Form targetForm, Point originPoint, int dataByteCount, int iterationCounter = 1)
+        public IOperation CreateOperation(OperationType type, Form targetForm, Point originPoint, int dataByteCount = 1, int iterationCounter = 1)
         { 
             switch(type)
             {
