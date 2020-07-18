@@ -30,16 +30,12 @@ namespace SerialGUI
             this.DeviceComboBox.Enabled = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void SubmitButton_Click(object sender, EventArgs e)
         {
             // prepare new form
             form2 = new Form();
 
+            /*** WRITE OPERATION ***/
             // if write operations is non-zero and non-negative
             if (this.WriteOperationCount.Value > 0)
             {
@@ -52,7 +48,8 @@ namespace SerialGUI
                     for (int i = 0; i<this.WriteOperationCount.Value; i++)
                     {
                         // create an new groupbox in form2
-                        opFactory.addWriteOperationToForm(form2, writeGroupBoxPosition, (int)this.WriteDataByteCount.Value, i);
+                        IOperation wOp = opFactory.CreateOperation(OperationType.Write, form2, writeGroupBoxPosition, (int)this.WriteDataByteCount.Value, i);
+
                         // increment writeOperationPosition.Y by the height of the added component*operation count
                         writeGroupBoxPosition.Y += form2.Controls.Find("wGroupBox" + i, true).FirstOrDefault().Height;
                     }
@@ -68,17 +65,16 @@ namespace SerialGUI
                 this.SubmitButton_Click(sender, e);
             }
 
-            /*** INSERT READ HERE ***/
+            /*** READ OPERATION ***/
             if(this.ReadOperationCount.Value > 0)
             {
                 if(this.ReadDataByteCount.Value >0)
                 {
-                    Point readGroupBoxPosition = new Point(form2.Controls.Find("writeOperationGroupBox", true).FirstOrDefault().Width, 20);
+                    Point readGroupBoxPosition = new Point(form2.Controls.Find("writeOperationGroupBox", true).FirstOrDefault().Width+40, 20);
 
                     for(int i = 0; i< this.ReadOperationCount.Value; i++)
                     {
-
-                        opFactory.addReadOperationToForm(form2, readGroupBoxPosition, (int)this.ReadDataByteCount.Value, i);
+                        IOperation rOp = opFactory.CreateOperation(OperationType.Read, form2, readGroupBoxPosition, (int)this.ReadDataByteCount.Value, i);
                     }
                 }
             }
@@ -90,6 +86,8 @@ namespace SerialGUI
                 // get bigger hight from read/write and take the biggest one as starting window size
                 int dynamicWindowSize = form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height > form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height ? form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height + 40 : form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height + 40;
                 form2.Size = new Size(form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Width + 40 + form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Width, dynamicWindowSize);
+                
+
                 // if form 2 is closed, show form1 again
                 form2.FormClosed += (s, args) => this.Show();
                 // show form2
@@ -100,7 +98,13 @@ namespace SerialGUI
                 this.SubmitButton_Click(sender, e);
             }
 
-        } 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void OperationCount_ValueChanged(object sender, EventArgs e)
         {
 
