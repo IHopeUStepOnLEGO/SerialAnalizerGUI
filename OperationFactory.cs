@@ -71,43 +71,38 @@ namespace SerialGUI
         {
             get { return _groupBoxWidth; }
         }
-        public ReadOperation(Form targetForm, Point originPoint, int dataByteCount, int iterationCounter = 1)
+        public ReadOperation(Form targetForm, Point originPoint, int iterationCounter = 1)
         {
             // check if target form already has an group box for read operations
-            if (targetForm.Controls.Find("readOperationGroupBox", false).FirstOrDefault() as GroupBox == null)
+            if (targetForm.Controls.Find("readOperationGroupBox", true).FirstOrDefault() as GroupBox == null)
             {
                 // create a GroupBox to hold all operations if not present
                 GroupBox readOperationGroupBox = new GroupBox();
                 readOperationGroupBox.Text = "read operations";
                 readOperationGroupBox.Name = "readOperationGroupBox";
-                readOperationGroupBox.Location = originPoint;
+                readOperationGroupBox.Location = new Point(originPoint.X, originPoint.Y + 100);
                 readOperationGroupBox.Size = new Size(_groupBoxWidth, 40);
 
                 // add GroupBox to targetForm
                 targetForm.Controls.Add(readOperationGroupBox);
             }
 
+
             // for each read operation, create a GroupBox
             GroupBox rGroup = new GroupBox();
-            rGroup.Location = new Point(originPoint.X + 200, originPoint.Y);
+            rGroup.Location = new Point(originPoint.X-_groupBoxWidth - 30, originPoint.Y + 10);
             rGroup.Text = "read" + iterationCounter;
-            GroupBoxHeight = 40 + (dataByteCount * _textBoxHeight) + (dataByteCount + 1) * 5;
+            GroupBoxHeight = 40 + (_textBoxHeight) + 10;
             rGroup.Size = new Size(230, _groupBoxHeight);
             rGroup.Name = "rGroupBox" + iterationCounter;
 
-            // add groupbox to target form
-            //GroupBox targetGroupBox = targetForm.Controls.Find("readOperationGroupBox", true).FirstOrDefault() as GroupBox;
-            //targetGroupBox.Height = _groupBoxHeight;
-            //targetGroupBox.Controls.Add(rGroup);
-
-            Point rGroupContentOriginPoint = new Point(originPoint.X + _groupBoxWidth, originPoint.Y + 20);
+            Point rGroupContentOriginPoint = new Point(originPoint.X - _groupBoxWidth-20, originPoint.Y + 20);
 
             // add an label for slaveAddress textbox 
             Label slvAddrTBLabel = new Label();
             slvAddrTBLabel.Location = new Point(rGroupContentOriginPoint.X - 10, rGroupContentOriginPoint.Y - 20 - (iterationCounter * _groupBoxHeight));
             slvAddrTBLabel.Text = "rSlaveAddress:";
             slvAddrTBLabel.Name = "rSlaveAddressLabel" + iterationCounter;
-
 
             // add slaveAddressTextBox
             TextBox slvAddrTB = new TextBox();
@@ -116,12 +111,17 @@ namespace SerialGUI
             slvAddrTB.Location = new Point(rGroupContentOriginPoint.X, rGroupContentOriginPoint.Y - (iterationCounter * _groupBoxHeight));
             slvAddrTB.Name = "rSlaveAddressTextBox" + iterationCounter;
 
+            // add an label for databyte textboxes
+            Label dataByteLabel = new Label();
+            dataByteLabel.Location = new Point(rGroupContentOriginPoint.X + _textBoxHOffset, rGroupContentOriginPoint.Y - 20 - (iterationCounter * _groupBoxHeight));
+            dataByteLabel.Text = "dataBytes:";
+            dataByteLabel.Name = "rdataBytes" + iterationCounter;
 
             // Add dataByte textbox to receive
             TextBox dataByteTB = new TextBox();
             dataByteTB.Height = _textBoxHeight;
             dataByteTB.Width = _textBoxWidth;
-            dataByteTB.Location = new Point(rGroupContentOriginPoint.X + _textBoxHOffset, rGroupContentOriginPoint.Y + 25 - (iterationCounter * _groupBoxHeight));
+            dataByteTB.Location = new Point(rGroupContentOriginPoint.X + _textBoxHOffset, rGroupContentOriginPoint.Y - (iterationCounter * _groupBoxHeight));
             dataByteTB.Name = "rDataByteTextBox" + iterationCounter;
 
             // add dataByteText Box to target Form
@@ -135,14 +135,14 @@ namespace SerialGUI
             receiveButton.Name = "rReceiveButton" + iterationCounter;
             receiveButton.Location = new Point(rGroupContentOriginPoint.X + _textBoxWidth + 80, rGroupContentOriginPoint.Y - (iterationCounter * this.GroupBoxHeight));
 
-            // add all non-dynamic components
+            // add all components
             rGroup.Controls.Add(slvAddrTB);
             rGroup.Controls.Add(receiveButton);
-            //rGroup.Controls.Add(dataByteLabel);
+            rGroup.Controls.Add(dataByteLabel);
             rGroup.Controls.Add(slvAddrTBLabel);
 
             // add groupbox to target form
-            targetGroupBox = targetForm.Controls.Find("readOperationGroupBox", false).FirstOrDefault() as GroupBox;
+            targetGroupBox = targetForm.Controls.Find("readOperationGroupBox", true).FirstOrDefault() as GroupBox;
             targetGroupBox.Height += _groupBoxHeight;
             targetGroupBox.Controls.Add(rGroup);
         }
@@ -215,7 +215,7 @@ namespace SerialGUI
                 GroupBox writeOperationGroupBox = new GroupBox();
                 writeOperationGroupBox.Text = "write operations";
                 writeOperationGroupBox.Name = "writeOperationGroupBox";
-                writeOperationGroupBox.Location = originPoint;
+                writeOperationGroupBox.Location = new Point(originPoint.X, originPoint.Y + 100);
                 writeOperationGroupBox.Size = new Size(_groupBoxWidth, 40);
 
                 // add GroupBox to targetForm
@@ -272,13 +272,11 @@ namespace SerialGUI
             sendButton.Name = "wSendButton" + iterationCounter;
             sendButton.Location = new Point(wGroupContentOriginPoint.X + _textBoxWidth + 80, wGroupContentOriginPoint.Y - (iterationCounter * this.GroupBoxHeight));
 
-            // add all non-dynamic components
+            // add all components
             wGroup.Controls.Add(slvAddrTB);
             wGroup.Controls.Add(sendButton);
             wGroup.Controls.Add(dataByteLabel);
             wGroup.Controls.Add(slvAddrTBLabel);
-
-
 
             // add groupbox to target form
             targetGroupBox = targetForm.Controls.Find("writeOperationGroupBox", false).FirstOrDefault() as GroupBox;
@@ -307,7 +305,7 @@ namespace SerialGUI
             switch(type)
             {
                 case OperationType.Read: 
-                    return new ReadOperation(targetForm, originPoint, dataByteCount, iterationCounter);
+                    return new ReadOperation(targetForm, originPoint, iterationCounter);
                 case OperationType.Write:
                     return new WriteOperation(targetForm, originPoint, dataByteCount, iterationCounter);
                 default:

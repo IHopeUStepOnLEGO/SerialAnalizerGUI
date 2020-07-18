@@ -35,9 +35,7 @@
             this.OperationsGroupBox = new System.Windows.Forms.GroupBox();
             this.ReadGroupBox = new System.Windows.Forms.GroupBox();
             this.ReadOperationCountLabel = new System.Windows.Forms.Label();
-            this.ReadDataByteCountLabel = new System.Windows.Forms.Label();
             this.ReadOperationCount = new System.Windows.Forms.NumericUpDown();
-            this.ReadDataByteCount = new System.Windows.Forms.NumericUpDown();
             this.WriteGroupBox = new System.Windows.Forms.GroupBox();
             this.WriteOperationCountLabel = new System.Windows.Forms.Label();
             this.COMConnectionComboBox = new System.Windows.Forms.ComboBox();
@@ -52,7 +50,6 @@
             this.OperationsGroupBox.SuspendLayout();
             this.ReadGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadOperationCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReadDataByteCount)).BeginInit();
             this.WriteGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -107,12 +104,10 @@
             // ReadGroupBox
             // 
             this.ReadGroupBox.Controls.Add(this.ReadOperationCountLabel);
-            this.ReadGroupBox.Controls.Add(this.ReadDataByteCountLabel);
             this.ReadGroupBox.Controls.Add(this.ReadOperationCount);
-            this.ReadGroupBox.Controls.Add(this.ReadDataByteCount);
             this.ReadGroupBox.Location = new System.Drawing.Point(185, 19);
             this.ReadGroupBox.Name = "ReadGroupBox";
-            this.ReadGroupBox.Size = new System.Drawing.Size(170, 93);
+            this.ReadGroupBox.Size = new System.Drawing.Size(170, 52);
             this.ReadGroupBox.TabIndex = 7;
             this.ReadGroupBox.TabStop = false;
             this.ReadGroupBox.Text = "Read";
@@ -126,28 +121,12 @@
             this.ReadOperationCountLabel.TabIndex = 4;
             this.ReadOperationCountLabel.Text = "No. of Operations";
             // 
-            // ReadDataByteCountLabel
-            // 
-            this.ReadDataByteCountLabel.AutoSize = true;
-            this.ReadDataByteCountLabel.Location = new System.Drawing.Point(17, 50);
-            this.ReadDataByteCountLabel.Name = "ReadDataByteCountLabel";
-            this.ReadDataByteCountLabel.Size = new System.Drawing.Size(55, 26);
-            this.ReadDataByteCountLabel.TabIndex = 2;
-            this.ReadDataByteCountLabel.Text = "No. of \r\nDatabytes";
-            // 
             // ReadOperationCount
             // 
             this.ReadOperationCount.Location = new System.Drawing.Point(105, 19);
             this.ReadOperationCount.Name = "ReadOperationCount";
             this.ReadOperationCount.Size = new System.Drawing.Size(50, 20);
             this.ReadOperationCount.TabIndex = 3;
-            // 
-            // ReadDataByteCount
-            // 
-            this.ReadDataByteCount.Location = new System.Drawing.Point(105, 56);
-            this.ReadDataByteCount.Name = "ReadDataByteCount";
-            this.ReadDataByteCount.Size = new System.Drawing.Size(50, 20);
-            this.ReadDataByteCount.TabIndex = 0;
             // 
             // WriteGroupBox
             // 
@@ -255,7 +234,6 @@
             this.ReadGroupBox.ResumeLayout(false);
             this.ReadGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReadOperationCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ReadDataByteCount)).EndInit();
             this.WriteGroupBox.ResumeLayout(false);
             this.WriteGroupBox.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -276,9 +254,7 @@
         private System.Windows.Forms.Label WriteOperationCountLabel;
         private System.Windows.Forms.GroupBox ReadGroupBox;
         private System.Windows.Forms.Label ReadOperationCountLabel;
-        private System.Windows.Forms.Label ReadDataByteCountLabel;
         private System.Windows.Forms.NumericUpDown ReadOperationCount;
-        private System.Windows.Forms.NumericUpDown ReadDataByteCount;
         private System.Windows.Forms.ComboBox COMConnectionComboBox;
         private System.Windows.Forms.Label COMConnectionLabel;
         private System.Windows.Forms.Button COMConnectionButton;

@@ -24,7 +24,6 @@ namespace SerialGUI
             this.WriteDataByteCount.Value = 1;
 
             this.ReadOperationCount.Value = 1;
-            this.ReadDataByteCount.Value = 1;
 
             // set device selection to disabled until connection established
             this.DeviceComboBox.Enabled = false;
@@ -68,14 +67,12 @@ namespace SerialGUI
             /*** READ OPERATION ***/
             if(this.ReadOperationCount.Value > 0)
             {
-                if(this.ReadDataByteCount.Value >0)
-                {
-                    Point readGroupBoxPosition = new Point(form2.Controls.Find("writeOperationGroupBox", true).FirstOrDefault().Width+40, 20);
+                Point readGroupBoxPosition = new Point(form2.Controls.Find("writeOperationGroupBox", true).FirstOrDefault().Width+40, 20);
 
-                    for(int i = 0; i< this.ReadOperationCount.Value; i++)
-                    {
-                        IOperation rOp = opFactory.CreateOperation(OperationType.Read, form2, readGroupBoxPosition, (int)this.ReadDataByteCount.Value, i);
-                    }
+                for(int i = 0; i< this.ReadOperationCount.Value; i++)
+                {
+                    IOperation rOp = opFactory.CreateOperation(OperationType.Read, form2, readGroupBoxPosition, 1, i);
+                    readGroupBoxPosition.Y += form2.Controls.Find("rGroupBox" + i, true).FirstOrDefault().Height;
                 }
             }
 
@@ -84,8 +81,8 @@ namespace SerialGUI
                 // hide form1 after submission
                 this.Hide();
                 // get bigger hight from read/write and take the biggest one as starting window size
-                int dynamicWindowSize = form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height > form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height ? form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height + 40 : form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height + 40;
-                form2.Size = new Size(form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Width + 40 + form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Width, dynamicWindowSize);
+                int dynamicWindowSize = form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height > form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height ? form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Height + 40 : form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Height + 40;                
+                form2.Size = new Size(form2.Controls.Find("writeOperationGroupBox", false).FirstOrDefault().Width + 40 + form2.Controls.Find("readOperationGroupBox", false).FirstOrDefault().Width + 30, dynamicWindowSize /*20px border*/ + 20  /*Yoffset from top */ + 100);
                 
 
                 // if form 2 is closed, show form1 again
